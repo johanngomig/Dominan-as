@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Cartões de Crédito - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container mt-4">
+    <h2>Cartões de Crédito</h2>
+    <a href="{{ url_for('card.novo_cartao_credito') }}" class="btn btn-primary mb-3">Cadastrar Novo Cartão</a>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome do Cartão</th>
+                <th>Limite</th>
+                <th>Limite Restante</th>
+                <th>Data de Vencimento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cartao in cartoes %}
+            <tr>
+                <td>{{ cartao.id }} - {{ cartao.nome_cartao }}</td>
+                <td>R$ {{ cartao.limite_cartao }}</td>
+                <td>R$ {{ cartao.limite_restante }}</td>
+                <td>{{ cartao.data_vencimento.strftime('%d/%m/%Y') }}</td>
+                <td>
+                    <a href="{{ url_for('card.editar_cartao_credito', cartao_id=cartao.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <form action="{{ url_for('card.excluir_cartao_credito', cartao_id=cartao.id) }}" method="POST" style="display:inline;" onsubmit="return confirmarExclusao(event);">
+                        <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

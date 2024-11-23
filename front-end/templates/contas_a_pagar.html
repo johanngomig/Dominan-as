@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Contas a Pagar - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container mt-4">
+    <h2>Contas a Pagar</h2>
+    <a href="/contas_a_pagar/nova" class="btn btn-primary mb-3">Adicionar Nova Conta</a>
+    
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data de Vencimento</th>
+                    <th>Categoria</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for conta in contas %}
+                <tr>
+                    <td>{{ conta.descricao }}</td>
+                    <td>R$ {{ conta.valor }}</td>
+                    <td>{{ conta.data_vencimento.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ conta.categoria }}</td>
+                    <td>
+                        {% if conta.status %}
+                            <span class="text-success">Pago</span>
+                        {% else %}
+                            <span class="text-danger">Pendente</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="/contas_a_pagar/editar/{{ conta.id }}" class="btn btn-sm btn-warning"><strong>Editar</strong></a>
+                        
+                        <form action="{{ url_for('account.excluir_conta_a_pagar', conta_id=conta.id) }}" method="POST" style="display:inline;" onsubmit="return confirmarExclusao(event);">
+                            <button type="submit" class="btn btn-sm btn-danger"><strong>Excluir</strong></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

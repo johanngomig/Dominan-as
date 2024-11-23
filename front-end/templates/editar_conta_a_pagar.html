@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Editar Conta a Pagar - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+    <h2>Editar Conta a Pagar</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input type="text" class="form-control" id="descricao" name="descricao" value="{{ conta.descricao }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="valor" class="form-label">Valor</label>
+            <input type="number" class="form-control" id="valor" name="valor" step="0.01" value="{{ conta.valor }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="data_vencimento" class="form-label">Data de Vencimento</label>
+            <input type="date" class="form-control" id="data_vencimento" name="data_vencimento" value="{{ conta.data_vencimento }}" required>
+        </div>
+        <div class="mb-1">
+            <label for="categoria" class="form-label">Categoria:</label>
+            <select class="form-control" id="categoria" name="categoria">
+                <option value="Moradia" {% if conta and conta.categoria == 'Moradia' %}selected{% endif %}>Moradia</option>
+                <option value="Alimentação" {% if conta and conta.categoria == 'Alimentação' %}selected{% endif %}>Alimentação</option>
+                <option value="Saúde" {% if conta and conta.categoria == 'Saúde' %}selected{% endif %}>Saúde</option>
+                <option value="Educação" {% if conta and conta.categoria == 'Educação' %}selected{% endif %}>Educação</option>
+                <option value="Despesas Pessoais" {% if conta and conta.categoria == 'Despesas Pessoais' %}selected{% endif %}>Despesas Pessoais</option>
+                <option value="Transporte" {% if conta and conta.categoria == 'Transporte' %}selected{% endif %}>Transporte</option>
+                <option value="Telefonia" {% if conta and conta.categoria == 'Telefonia' %}selected{% endif %}>Telefonia</option>
+                <option value="Internet" {% if conta and conta.categoria == 'Internet' %}selected{% endif %}>Internet</option>
+                <option value="Lazer" {% if conta and conta.categoria == 'Lazer' %}selected{% endif %}>Lazer</option>
+            </select>
+        </div>
+        <!-- Se der tempo atualizar com sub-categorias,pag 13: https://www.gov.br/investidor/pt-br/educacional/programa-bem-estar-financeiro/programa-bem-estar-financeiro-arquivos/apostila-03.pdf-->
+        <div class="form-check mb-3">
+            <input
+                type="checkbox"
+                class="form-check-input"
+                id="status"
+                name="status"
+                {% if conta and conta.status %}checked{% endif %}
+            />
+            <label class="form-check-label" for="status">Pago</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <a href="{{ url_for('account.contas_a_pagar') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}

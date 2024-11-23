@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4 border-bottom pb-4 justify-content-center">
+    <h2 class="mb-4">Dashboard</h2>
+
+    <div class="row g-2">
+        <h3>Pendentes</h3>
+        <div class="col-md-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Contas a Pagar</h5>
+                    <p class="card-text">Total: R$ {{ total_contas_a_pagar }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Contas a Receber</h5>
+                    <p class="card-text">Total: R$ {{ total_contas_a_receber }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card text-white 
+            {% if saldo_pagar >= 0 %}
+                bg-success
+            {% else %}
+                bg-danger
+            {% endif %} h-100">
+
+                <div class="card-body">
+                    <h5 class="card-title">Saldo</h5>
+                    <p class="card-text">Total: R$ {{ saldo_pagar }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4 border-bottom pb-4">
+    <h3>Pagos</h3>
+    <div class="row g-2">
+        <div class="col-md-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Contas Pagas</h5>
+                    <p class="card-text">Total: R$ {{ total_contas_pagas }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Contas Recebidas</h5>
+                    <p class="card-text">Total: R$ {{ total_contas_recebidas }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card text-white 
+            {% if saldo_pago >= 0 %}
+                bg-success
+            {% else %}
+                bg-danger
+            {% endif %} h-100">
+
+                <div class="card-body">
+                    <h5 class="card-title">Saldo</h5>
+                    <p class="card-text">Total: R$ {{ saldo_pago }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

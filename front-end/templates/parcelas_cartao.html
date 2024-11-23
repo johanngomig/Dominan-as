@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Parcelas da Compra - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+    <h2>Parcelas da Compra: {{ compra.descricao }}</h2>
+    
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>Número da Parcela</th>
+                    <th>Valor da Parcela</th>
+                    <th>Data da Parcela</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for parcela in parcelas %}
+                <tr>
+                    <td>{{ parcela.numero_parcela }}</td>
+                    <td>R$ {{ parcela.valor_parcela | round(2) }}</td>
+                    <td>{{ parcela.data_parcela.strftime('%d/%m/%Y') }}</td>
+                    <td>
+                        {% if parcela.status == 'Vencida' %}
+                            <span class="text-danger">{{ parcela.status }}</span>
+                        {% elif parcela.status == 'Vencimento hoje' %}
+                            <span class="text-danger">{{ parcela.status }}</span>
+                        {% elif parcela.status == 'Vencimento em breve' %}
+                            <span class="text-warning">{{ parcela.status }}</span>
+                        {% else %}
+                            <span class="text-success">{{ parcela.status }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{{ url_for('card.compras_cartao') }}" class="btn btn-secondary mt-3">Voltar</a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Nova Conta a Receber - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+    <h2>Adicionar Nova Conta a Receber</h2>
+    <form method="POST">
+        <div class="mb-1">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input type="text" class="form-control" name="descricao" required>
+        </div>
+        <div class="mb-1">
+            <label for="valor" class="form-label">Valor</label>
+            <input type="number" class="form-control" name="valor" step="0.01" required>
+        </div>
+        <div class="mb-1">
+            <label for="data_recebimento" class="form-label">Data de Recebimento</label>
+            <input type="date" class="form-control" name="data_recebimento" required>
+        </div>
+        <div class="mb-1">
+            <label for="categoria" class="form-label">Categoria:</label>
+            <select class="form-control" id="categoria" name="categoria">
+                <option value="Salário">Salário</option>
+                <option value="Vendas">Vendas</option>
+                <option value="Seguro">Seguro</option>
+                <option value="Doação">Doação</option>
+                <option value="Vaquinha">Vaquinha</option>
+                <option value="Rendimentos">Rendimentos</option>
+                <option value="Freelance">Freelance</option>
+                <option value="Bonificação">Bonificação</option>
+                <option value="Férias">Férias</option>
+                <option value="13º">13º</option>
+                <option value="Restituição IR">Restituição IR</option>
+            </select>
+        </div>
+        <div class="form-check mb-3">
+            <input
+                type="checkbox"
+                class="form-check-input"
+                id="status"
+                name="status"
+                {% if conta and conta.status %}checked{% endif %}
+            />
+            <label class="form-check-label" for="status">Recebido</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Adicionar Conta</button>
+        <a href="{{ url_for('account.contas_a_receber') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}

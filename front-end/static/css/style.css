@@ -1,0 +1,99 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #ddd; /* Linha separadora na parte inferior */
+}
+
+.nav-link {
+    padding: 0.5rem 1rem;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-item .nav-link {
+    color: #555;
+}
+
+.nav-item .nav-link:hover {
+    color: #007bff;
+}
+
+.btn {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.table {
+    margin-bottom: 1rem;
+    background-color: #fff;
+}
+
+.table th, .table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    background-color: #f1f1f1;
+}
+
+/* Limitando o tamanho da tabela e setando barra de rolagem */
+.table-responsive {
+    max-height: 400px; 
+    overflow-y: auto;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-check {
+    margin-bottom: 1rem;
+}
+
+.container {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.alert {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.alert-dismissible .close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.25rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Perfil do Usuário - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+    <h2>Perfil do Usuário</h2>
+    <form action="/perfil_usuario" method="POST">
+        <div class="mb-1">
+            <label for="nome" class="form-label">Nome:</label>
+            <input
+                type="text"
+                class="form-control"
+                id="nome"
+                name="nome"
+                value="{{ usuario.nome }}"
+                required
+            />
+        </div>
+        <div class="mb-1">
+            <label for="email" class="form-label">Email:</label>
+            <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                value="{{ usuario.email }}"
+                required
+            />
+        </div>
+        <div class="mb-1">
+            <label for="senha_atual" class="form-label">Senha Atual:</label>
+            <input
+                type="password"
+                class="form-control"
+                id="senha_atual"
+                name="senha_atual"
+            />
+        </div>
+        <div class="mb-1">
+            <label for="nova_senha" class="form-label">Nova Senha:</label>
+            <input
+                type="password"
+                class="form-control"
+                id="nova_senha"
+                name="nova_senha"
+            />
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Atualizar</button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Nova Compra com Cartão - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+    <h2>Adicionar Nova Compra com Cartão</h2>
+
+    <form method="POST">
+        <div class="mb-1">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input type="text" name="descricao" id="descricao" class="form-control" 
+                {% if compra and compra.descricao %}value="{{ compra.descricao }}" {% endif %}
+            required>
+        </div>
+        <div class="mb-1">
+            <label for="valor" class="form-label">Valor</label>
+            <input type="number" step="0.01" name="valor" id="valor" class="form-control" 
+                {% if compra and compra.valor %}value="{{ compra.valor }}" {% endif %}
+            required>
+        </div>
+        <div class="mb-1">
+            <label for="data_compra" class="form-label">Data da Compra</label>
+            <input type="date" name="data_compra" id="data_compra" class="form-control" 
+                {% if compra and compra.data_compra %}value="{{ compra.data_compra }}" {% endif %}
+            required>
+        </div>
+        <div class="mb-1">
+            <label for="categoria" class="form-label">Categoria:</label>
+            <select class="form-control" id="categoria" name="categoria">
+                {% if compra and compra.categoria %}
+                    <option value="{{ compra.categoria }}" selected>{{ compra.categoria }}</option>
+                {% else %}
+                    <option value="Moradia">Moradia</option>
+                    <option value="Alimentação">Alimentação</option>
+                    <option value="Saúde">Saúde</option>
+                    <option value="Educação">Educação</option>
+                    <option value="Despesas Pessoais">Despesas Pessoais</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Telefonia">Telefonia</option>
+                    <option value="Internet">Internet</option>
+                    <option value="Lazer">Lazer</option>
+                {% endif %}
+            </select>
+        </div>
+        <!-- Se der tempo atualizar com sub-categorias,pag 13: https://www.gov.br/investidor/pt-br/educacional/programa-bem-estar-financeiro/programa-bem-estar-financeiro-arquivos/apostila-03.pdf-->
+        <div class="mb-1">
+            <label for="parcelas" class="form-label">Parcelas</label>
+            <input type="number" name="parcelas" id="parcelas" min="1" class="form-control" 
+                {% if compra and compra.parcelas %}value="{{ compra.num_parcelas }}" {% endif %}
+            required>
+        </div>
+        <div class="mb-1">
+            <label for="cartao_utilizado" class="form-label">Cartão Utilizado</label>
+            <select name="cartao_utilizado" class="form-control" required>
+                {% for cartao in cartoes %}
+                <option value="{{ cartao.id }}">
+                    {{ cartao.nome_cartao }} - Limite Restante R$: 
+                    {% if cartao.limite_cartao == cartao.limite_restante %}
+                        {{cartao.limite_cartao}} 
+                    {% else %} 
+                        {{cartao.limite_restante }}
+                    {% endif %}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Salvar Compra</button>
+    </form>
+</div>
+
+{% endblock %}

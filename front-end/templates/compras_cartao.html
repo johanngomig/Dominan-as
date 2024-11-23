@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Compras com Cartão - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+    <h2>Compras com Cartão</h2>
+    <a href="{{ url_for('card.nova_compra_cartao') }}" class="btn btn-primary mb-3">Adicionar Nova Compra</a>
+    
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data da Compra</th>
+                    <th>Categoria</th>
+                    <th>Parcelas</th>
+                    <th>Cartão Utilizado</th>
+                    <th>Limite restante</th>
+                    <th>Detalhes</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for compra in compras %}
+                <tr>
+                    <td>{{ compra.descricao }}</td>
+                    <td>{{ compra.valor }}</td>
+                    <td>{{ compra.data_compra.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ compra.categoria }}</td>
+                    <td>{{ compra.num_parcelas }}</td>
+                    <td>{{ compra.cartao_utilizado }} - {{ compra.nome_cartao }}</td>
+                    <td>{{ compra.limite_restante }}</td>
+                    <td>
+                        <a href="/compras_cartao/{{compra.id}}/parcelas" class="btn btn-primary btn-sm"><strong>Ver Parcelas</strong></a> 
+                    </td>
+                    <td>
+                    <form action="{{ url_for('card.excluir_compra_cartao', compra_id=compra.id) }}" method="POST" style="display:inline;" onsubmit="return confirmarExclusao(event);">
+                        <button type="submit" class="btn btn-sm btn-danger"><strong>Excluir</strong></button>
+                    </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

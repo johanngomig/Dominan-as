@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Relatórios - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+<div class="container mt-4 mb-5">
+    <h2>Relatórios Financeiros</h2>
+
+    <form method="GET" action="/relatorios">
+        <div class="row g-3">
+            <div class="col-md-3">
+                <label for="tipo_relatorio" class="form-label">Tipo de Relatório:</label>
+                <select class="form-select" id="tipo_relatorio" name="tipo_relatorio">
+                    <option value="despesas_categoria" {% if tipo_relatorio == 'despesas_categoria' %}selected{% endif %}>Despesas por Categoria</option>
+                    <option value="saldo_pagar_receber" {% if tipo_relatorio == 'saldo_pagar_receber' %}selected{% endif %}>Saldo entre Contas a Pagar, Receber e Compras com Cartão</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="data_inicial" class="form-label">Data Inicial:</label>
+                <input type="date" class="form-control" id="data_inicial" name="data_inicial" value="{{ data_inicial }}" />
+            </div>
+            <div class="col-md-3">
+                <label for="data_final" class="form-label">Data Final:</label>
+                <input type="date" class="form-control" id="data_final" name="data_final" value="{{ data_final }}" />
+            </div>
+            <div class="col-md-3 align-self-end">
+                <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Chart para exibir o relatório -->
+    <div class="mt-4 chart-container">
+        <canvas id="graficoRelatorio"></canvas>
+    </div>
+
+    <div class="mt-3">
+        <button class="btn btn-secondary">Exportar para PDF</button>
+        <button class="btn btn-secondary">Exportar para Excel</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('graficoRelatorio').getContext('2d');
+    var graficoRelatorio = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ labels|tojson }},
+            datasets: [{
+                label: '{{ tipo_relatorio }}',
+                data: {{ valores|tojson }},
+                backgroundColor: ['#007bff', '#28a745', '#dc3545', '#ffc107', '#17a2b8'],
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

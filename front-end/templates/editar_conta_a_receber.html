@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Editar Conta a Receber - Sistema de Gestão de Contas Domésticas{% endblock %}
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="container mt-4">
+    <h2>Editar Conta a Receber</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input type="text" class="form-control" id="descricao" name="descricao" value="{{ conta.descricao }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="valor" class="form-label">Valor</label>
+            <input type="number" class="form-control" id="valor" name="valor" step="0.01" value="{{ conta.valor }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="data_recebimento" class="form-label">Data de Recebimento</label>
+            <input type="date" class="form-control" id="data_recebimento" name="data_recebimento" value="{{ conta.data_recebimento }}" required>
+        </div>
+        <div class="mb-1">
+            <label for="categoria" class="form-label">Categoria:</label>
+            <select class="form-control" id="categoria" name="categoria">
+                <option value="Salário" {% if conta and conta.categoria == 'Salário' %}selected{% endif %}>Salário</option>
+                <option value="Vendas" {% if conta and conta.categoria == 'Vendas' %}selected{% endif %}>Vendas</option>
+                <option value="Seguro" {% if conta and conta.categoria == 'Seguro' %}selected{% endif %}>Seguro</option>
+                <option value="Doação" {% if conta and conta.categoria == 'Doação' %}selected{% endif %}>Doação</option>
+                <option value="Vaquinha" {% if conta and conta.categoria == 'Vaquinha' %}selected{% endif %}>Vaquinha</option>
+                <option value="Rendimentos" {% if conta and conta.categoria == 'Rendimentos' %}selected{% endif %}>Rendimentos</option>
+                <option value="Freelance" {% if conta and conta.categoria == 'Freelance' %}selected{% endif %}>Freelance</option>
+                <option value="Bonificação" {% if conta and conta.categoria == 'Bonificação' %}selected{% endif %}>Bonificação</option>
+                <option value="Férias" {% if conta and conta.categoria == 'Férias' %}selected{% endif %}>Férias</option>
+                <option value="13º" {% if conta and conta.categoria == '13º' %}selected{% endif %}>13º</option>
+                <option value="Restituição IR" {% if conta and conta.categoria == 'Restituição IR' %}selected{% endif %}>Restituição IR</option>
+            </select>
+        </div>
+        <div class="form-check mb-3">
+            <input
+                type="checkbox"
+                class="form-check-input"
+                id="status"
+                name="status"
+                {% if conta and conta.status %}checked{% endif %}
+            />
+            <label class="form-check-label" for="status">Recebido</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        <a href="{{ url_for('account.contas_a_receber') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}
